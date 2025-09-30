@@ -35,6 +35,8 @@ public class TaskManager {
     }
 
     private void addTask() {
+    String description = "";  
+    while (true) {
         System.out.print("Enter task description: ");
         String description = scanner.nextLine();
         if (description.isEmpty()) {
@@ -49,6 +51,13 @@ public class TaskManager {
         tasks.add(new Task(description, priority));
         System.out.println("Task added.");
     }
+
+    tasks.add(new Task(description));
+    System.out.println("Task added.");
+}
+
+
+
 
     private void viewTasks() {
         if (tasks.isEmpty()) {
