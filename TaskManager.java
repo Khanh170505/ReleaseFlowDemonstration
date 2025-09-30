@@ -38,15 +38,18 @@ public class TaskManager {
     String description = "";  
     while (true) {
         System.out.print("Enter task description: ");
-        String input = scanner.nextLine();
-        String cleaned = input.replace("\"", "").trim();
-
-        if (cleaned.isEmpty()) {
-            System.out.println("Description cannot be empty. Please try again.");
-        } else {
-            description = cleaned;
-            break; 
+        String description = scanner.nextLine();
+        if (description.isEmpty()) {
+            System.out.println("Description cannot be empty. Task not added.");
+            return;
         }
+
+        System.out.print("Enter priority (1: High, 2: Medium, 3: Low): ");
+        int priority = scanner.nextInt();
+        scanner.nextLine(); 
+
+        tasks.add(new Task(description, priority));
+        System.out.println("Task added.");
     }
 
     tasks.add(new Task(description));
@@ -63,7 +66,13 @@ public class TaskManager {
             System.out.println("\nTasks:");
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
-                System.out.println((i + 1) + ". " + task.getDescription());
+                String prioText = switch (task.getPriority()) {
+                    case 1 -> "High";
+                    case 2 -> "Medium";
+                    case 3 -> "Low";
+                    default -> "Unknown";
+                };
+                System.out.println((i + 1) + ". " + task.getDescription() + " (Priority: " + prioText + ")");
             }
         }
     }
